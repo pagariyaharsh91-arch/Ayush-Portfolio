@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayush Dube — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Raleway:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --purple: #7B5CF0;
+  --purple-light: #9B7FF4;
+  --purple-glow: rgba(123, 92, 240, 0.6);
+  --bg: #06060F;
+  --bg2: #0A0A18;
+  --bg3: #0E0E1C;
+  --white: #FFFFFF;
+  --gray: #9898B2;
+  --gray2: #5A5A78;
+  --border: rgba(123,92,240,0.18);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--white); overflow-x: hidden; cursor: none; }
+
+/* CURSOR */
+.cursor { position:fixed; width:12px; height:12px; background:var(--purple); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:screen; }
+.cursor-ring { position:fixed; width:42px; height:42px; border:1.5px solid rgba(123,92,240,0.55); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:transform 0.45s cubic-bezier(.23,1,.32,1), width 0.25s, height 0.25s; }
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:26px 60px; transition:all 0.4s; }
+nav.scrolled { background:rgba(6,6,15,0.88); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); padding:16px 60px; }
+.nav-logo { font-family:'Raleway',sans-serif; font-size:20px; font-weight:800; color:var(--white); text-decoration:none; letter-spacing:0.04em; }
+.nav-logo span { color:var(--purple-light); }
+.nav-links { display:flex; gap:44px; list-style:none; }
+.nav-links a { font-size:13.5px; font-weight:500; color:var(--gray); text-decoration:none; transition:color 0.3s; }
+.nav-links a:hover { color:var(--white); }
+
+/* ── HERO ── */
+.hero { min-height:100vh; display:grid; grid-template-columns:180px 1fr 360px 1fr; align-items:center; position:relative; overflow:hidden; padding-top:80px; }
+
+/* glow */
+.glow-center { position:absolute; left:50%; top:50%; transform:translate(-50%,-48%); width:680px; height:680px; background:radial-gradient(ellipse, rgba(90,50,220,0.9) 0%, rgba(70,35,180,0.45) 38%, transparent 68%); border-radius:50%; pointer-events:none; z-index:0; }
+.glow-side { position:absolute; left:6%; top:18%; width:280px; height:280px; background:radial-gradient(ellipse, rgba(123,92,240,0.22) 0%, transparent 70%); border-radius:50%; pointer-events:none; z-index:0; animation:floatG 7s ease-in-out infinite; }
+
+/* social column */
+.hero-social { grid-column:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:22px; padding:0 0 80px 52px; height:100vh; position:relative; z-index:2; }
+.social-dot { width:10px; height:10px; border-radius:50%; background:rgba(123,92,240,0.45); box-shadow:0 0 18px var(--purple-glow); animation:floatDot 4s ease-in-out infinite; margin-bottom:8px; }
+.sicon { width:40px; height:40px; border:1px solid rgba(123,92,240,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gray); text-decoration:none; transition:all 0.3s; background:rgba(123,92,240,0.05); cursor:none; }
+.sicon:hover { background:var(--purple); color:white; border-color:var(--purple); box-shadow:0 0 22px var(--purple-glow); transform:translateY(-2px); }
+.sicon svg { width:16px; height:16px; fill:currentColor; }
+
+/* left text */
+.hero-left { grid-column:2; padding-left:16px; position:relative; z-index:2; }
+.h-hello { font-size:20px; font-weight:300; color:var(--purple-light); margin-bottom:6px; opacity:0; animation:fadeUp 0.8s ease 0.3s forwards; }
+.h-name { font-family:'Raleway',sans-serif; font-size:clamp(56px,6.5vw,90px); font-weight:800; line-height:0.95; color:var(--white); opacity:0; animation:fadeUp 0.9s ease 0.5s forwards; }
+.h-sub { margin-top:22px; font-size:13.5px; color:var(--gray); font-weight:300; line-height:1.8; max-width:300px; opacity:0; animation:fadeUp 0.9s ease 0.7s forwards; }
+.h-btns { margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; opacity:0; animation:fadeUp 0.9s ease 0.9s forwards; }
+.btn-p { padding:12px 28px; background:var(--purple); color:white; font-family:'Poppins',sans-serif; font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-decoration:none; border-radius:4px; box-shadow:0 0 28px rgba(123,92,240,0.5); transition:all 0.3s; cursor:none; }
+.btn-p:hover { background:var(--purple-light); box-shadow:0 0 48px rgba(123,92,240,0.8); transform:translateY(-2px); }
+.btn-o { padding:12px 28px; background:transparent; color:var(--white); font-family:'Poppins',sans-serif; font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-decoration:none; border:1.5px solid rgba(123,92,240,0.45); border-radius:4px; transition:all 0.3s; cursor:none; }
+.btn-o:hover { border-color:var(--purple); color:var(--purple-light); transform:translateY(-2px); }
+
+/* center photo */
+.hero-photo { grid-column:3; position:relative; z-index:2; display:flex; align-items:flex-end; justify-content:center; height:100vh; opacity:0; animation:fadeIn 1.2s ease 0.4s forwards; }
+.photo-frame { width:320px; height:500px; border-top-left-radius:160px; border-top-right-radius:160px; background:linear-gradient(180deg, rgba(100,60,220,0.1) 0%, rgba(100,60,220,0.28) 100%); border:1px solid rgba(123,92,240,0.3); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; position:relative; overflow:hidden; }
+.photo-frame::after { content:''; position:absolute; bottom:0; left:0; right:0; height:40%; background:linear-gradient(transparent, var(--bg)); }
+.photo-icon-wrap { width:70px; height:70px; border-radius:50%; border:2px dashed rgba(123,92,240,0.4); display:flex; align-items:center; justify-content:center; font-size:32px; }
+.photo-hint { font-size:11px; color:rgba(123,92,240,0.65); letter-spacing:0.12em; text-transform:uppercase; text-align:center; padding:0 24px; }
+
+/* right text */
+.hero-right { grid-column:4; text-align:right; padding-right:60px; padding-left:16px; position:relative; z-index:2; }
+.h-role-sm { font-size:20px; font-weight:300; color:var(--purple-light); margin-bottom:4px; opacity:0; animation:fadeUp 0.8s ease 0.4s forwards; }
+.h-role-big { font-family:'Raleway',sans-serif; font-size:clamp(38px,4.8vw,66px); font-weight:800; line-height:1.05; color:var(--white); opacity:0; animation:fadeUp 0.9s ease 0.6s forwards; }
+.h-role-big .pu { color:var(--purple-light); }
+.h-stats { margin-top:28px; display:flex; gap:28px; justify-content:flex-end; opacity:0; animation:fadeUp 0.9s ease 0.8s forwards; }
+.hstat-num { font-family:'Raleway',sans-serif; font-size:34px; font-weight:800; color:var(--purple-light); line-height:1; }
+.hstat-lbl { font-size:10px; color:var(--gray2); letter-spacing:0.12em; text-transform:uppercase; margin-top:4px; }
+
+/* resume link */
+.resume-btn { position:absolute; bottom:36px; right:60px; z-index:2; font-size:12px; color:var(--gray2); letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; display:flex; align-items:center; gap:8px; transition:color 0.3s; cursor:none; }
+.resume-btn:hover { color:var(--purple-light); }
+.resume-btn svg { width:15px; height:15px; fill:currentColor; }
+
+/* ── SECTIONS ── */
+section { position:relative; z-index:1; }
+.sec { padding:100px 80px; }
+.sec-divider { width:100%; height:1px; background:linear-gradient(90deg, transparent, var(--border), transparent); }
+.sec-hd { margin-bottom:60px; }
+.sec-tag { font-size:11px; letter-spacing:0.26em; text-transform:uppercase; color:var(--purple-light); margin-bottom:10px; display:flex; align-items:center; gap:12px; }
+.sec-tag::before { content:''; width:30px; height:2px; background:var(--purple); border-radius:2px; }
+.sec-title { font-family:'Raleway',sans-serif; font-size:clamp(30px,4vw,50px); font-weight:800; color:var(--white); line-height:1.1; }
+.sec-title span { color:var(--purple-light); }
+
+/* ABOUT */
+.about-g { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
+.a-text { font-size:14.5px; color:var(--gray); line-height:1.9; font-weight:300; }
+.a-text p { margin-bottom:18px; }
+.a-text strong { color:var(--white); font-weight:600; }
+.a-cards { display:flex; flex-direction:column; gap:14px; }
+.acard { padding:22px 26px; background:var(--bg3); border:1px solid var(--border); border-radius:8px; position:relative; overflow:hidden; transition:border-color 0.3s, box-shadow 0.3s; }
+.acard::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--purple); transform:scaleY(0); transition:transform 0.35s; transform-origin:bottom; }
+.acard:hover { border-color:rgba(123,92,240,0.4); box-shadow:0 0 22px rgba(123,92,240,0.09); }
+.acard:hover::before { transform:scaleY(1); }
+.acard-lbl { font-size:9.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--purple-light); margin-bottom:5px; }
+.acard-val { font-size:14px; font-weight:600; color:var(--white); }
+.acard-sub { font-size:11.5px; color:var(--gray2); margin-top:3px; }
+
+/* EXPERIENCE */
+.exp-item { display:grid; grid-template-columns:170px 36px 1fr; gap:0 20px; padding:38px 0; border-bottom:1px solid rgba(123,92,240,0.07); }
+.exp-item:last-child { border-bottom:none; }
+.exp-date { font-size:11.5px; color:var(--purple-light); letter-spacing:0.07em; padding-top:5px; }
+.exp-line { display:flex; flex-direction:column; align-items:center; }
+.exp-dot { width:11px; height:11px; border-radius:50%; background:var(--purple); box-shadow:0 0 14px var(--purple-glow); flex-shrink:0; margin-top:5px; }
+.exp-vl { flex:1; width:1px; background:var(--border); margin-top:8px; }
+.exp-item:last-child .exp-vl { display:none; }
+.exp-co { font-family:'Raleway',sans-serif; font-size:26px; font-weight:700; color:var(--white); margin-bottom:6px; }
+.exp-tag { display:inline-block; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--purple-light); border:1px solid rgba(123,92,240,0.28); padding:4px 12px; border-radius:20px; margin-bottom:14px; background:rgba(123,92,240,0.05); }
+.exp-desc { font-size:13.5px; color:var(--gray); line-height:1.8; font-weight:300; max-width:580px; }
+.exp-chips { margin-top:14px; display:flex; gap:8px; flex-wrap:wrap; }
+.chip { font-size:11px; padding:5px 13px; border:1px solid var(--border); border-radius:20px; color:var(--gray2); background:rgba(123,92,240,0.03); letter-spacing:0.04em; transition:all 0.3s; }
+.chip:hover { border-color:var(--purple); color:var(--purple-light); background:rgba(123,92,240,0.1); }
+
+/* BRANDS */
+.b-intro { font-size:14.5px; color:var(--gray); line-height:1.8; max-width:580px; margin-bottom:48px; font-weight:300; }
+.bcat { margin-bottom:36px; }
+.bcat-lbl { font-size:10.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--purple-light); margin-bottom:14px; display:flex; align-items:center; gap:12px; }
+.bcat-lbl::after { content:''; flex:1; max-width:44px; height:1px; background:rgba(123,92,240,0.3); }
+.btags { display:flex; flex-wrap:wrap; gap:9px; }
+.btag { font-size:12.5px; padding:7px 18px; border:1px solid var(--border); border-radius:4px; color:var(--gray); background:var(--bg3); transition:all 0.3s; cursor:default; }
+.btag:hover { border-color:var(--purple); color:var(--white); background:rgba(123,92,240,0.1); box-shadow:0 0 14px rgba(123,92,240,0.14); }
+.btag.star { border-color:rgba(123,92,240,0.38); color:var(--white); background:rgba(123,92,240,0.09); }
+.btag.star:hover { background:rgba(123,92,240,0.2); box-shadow:0 0 22px rgba(123,92,240,0.28); }
+
+/* PROJECTS */
+.proj-g { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.pcard { background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:34px 26px; position:relative; overflow:visible; transition:all 0.35s; cursor:none; }
+.pcard::before { content:''; position:absolute; inset:0; opacity:0; background:radial-gradient(ellipse at 50% 0%, rgba(123,92,240,0.13), transparent 65%); transition:opacity 0.4s; }
+.pcard:hover { border-color:rgba(123,92,240,0.42); transform:translateY(-6px); box-shadow:0 14px 40px rgba(123,92,240,0.13); }
+.pcard:hover::before { opacity:1; }
+.pnum { font-family:'Raleway',sans-serif; font-size:50px; font-weight:800; color:rgba(123,92,240,0.11); line-height:1; margin-bottom:18px; }
+.ptype { font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--purple-light); margin-bottom:8px; }
+.ptitle { font-family:'Raleway',sans-serif; font-size:20px; font-weight:700; color:var(--white); line-height:1.25; margin-bottom:12px; }
+.pdesc { font-size:12.5px; color:var(--gray); line-height:1.75; font-weight:300; }
+.parrow { margin-top:20px; font-size:18px; color:var(--purple); opacity:0; transform:translateX(-8px); transition:all 0.3s; }
+.pcard:hover .parrow { opacity:1; transform:translateX(0); }
+
+/* SKILLS */
+.skill-g { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.skcard { background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:30px 26px; transition:all 0.3s; }
+.skcard:hover { border-color:rgba(123,92,240,0.38); box-shadow:0 0 28px rgba(123,92,240,0.09); }
+.skcat { font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--purple-light); margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+.sklist { display:flex; flex-direction:column; gap:11px; }
+.skitem { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--gray); transition:color 0.3s; }
+.skitem:hover { color:var(--white); }
+.skitem::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--purple); flex-shrink:0; box-shadow:0 0 7px var(--purple-glow); }
+
+/* EDUCATION */
+.edu-g { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.ecard { background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:34px 30px; position:relative; overflow:hidden; transition:all 0.3s; }
+.ecard:hover { border-color:rgba(123,92,240,0.4); box-shadow:0 0 28px rgba(123,92,240,0.1); }
+.ecard::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--purple),transparent); opacity:0; transition:opacity 0.3s; }
+.ecard:hover::after { opacity:1; }
+.ebadge { display:inline-block; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--purple-light); border:1px solid rgba(123,92,240,0.28); padding:4px 12px; border-radius:20px; margin-bottom:18px; background:rgba(123,92,240,0.05); }
+.einst { font-family:'Raleway',sans-serif; font-size:21px; font-weight:700; color:var(--white); margin-bottom:7px; }
+.edeg { font-size:13px; color:var(--purple-light); margin-bottom:8px; }
+.estat { font-size:11.5px; color:var(--gray2); display:flex; align-items:center; gap:7px; }
+.ldot { width:6px; height:6px; border-radius:50%; background:#4ade80; box-shadow:0 0 9px rgba(74,222,128,0.6); animation:pdot 2s ease infinite; }
+
+/* CONTACT */
+.cta-box { text-align:center; max-width:540px; margin:0 auto; }
+.cta-box .sec-tag { justify-content:center; }
+.cta-box .sec-title { text-align:center; margin-bottom:18px; }
+.cta-p { font-size:14.5px; color:var(--gray); line-height:1.8; margin-bottom:36px; font-weight:300; }
+.cta-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+/* FOOTER */
+footer { border-top:1px solid var(--border); padding:48px 80px; display:flex; justify-content:space-between; align-items:center; background:var(--bg2); }
+.f-name { font-family:'Raleway',sans-serif; font-size:22px; font-weight:800; color:var(--white); }
+.f-name span { color:var(--purple-light); }
+.f-sub { font-size:11.5px; color:var(--gray2); margin-top:4px; }
+.f-mid { font-size:12.5px; color:var(--gray2); text-align:center; }
+.f-right { font-size:11.5px; color:var(--gray2); text-align:right; }
+.f-right .pu { color:rgba(123,92,240,0.5); margin-top:4px; font-size:10.5px; letter-spacing:0.06em; }
+
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(30px); transition:opacity 0.75s ease, transform 0.75s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.r1{transition-delay:0.07s} .r2{transition-delay:0.14s} .r3{transition-delay:0.21s} .r4{transition-delay:0.28s} .r5{transition-delay:0.35s}
+
+/* KEYFRAMES */
+@keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes floatDot { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+@keyframes floatG { 0%,100%{transform:translate(0,0)} 50%{transform:translate(6px,-10px)} }
+@keyframes pdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.6)} }
+
+/* MOBILE */
+@media(max-width:960px){
+  nav{padding:18px 24px;} nav.scrolled{padding:13px 24px;}
+  .nav-links{display:none;}
+  .hero{display:flex;flex-direction:column;align-items:flex-start;padding:100px 24px 56px;gap:36px;}
+  .hero-social{flex-direction:row;height:auto;padding:0;}
+  .hero-photo{width:100%;height:auto;}
+  .photo-frame{width:100%;height:360px;}
+  .hero-right{text-align:left;padding:0;}
+  .h-stats{justify-content:flex-start;}
+  .sec{padding:64px 24px;}
+  .about-g,.proj-g,.skill-g,.edu-g{grid-template-columns:1fr;}
+  .exp-item{grid-template-columns:1fr;gap:8px;}
+  .exp-line{display:none;}
+  footer{flex-direction:column;gap:20px;text-align:center;padding:36px 24px;}
+  .f-right{text-align:center;}
+}
+.look-btn {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 10px 18px;
+  background: rgba(123,92,240,0.12);
+  border: 1px solid rgba(123,92,240,0.35);
+  border-radius: 6px;
+  color: var(--purple-light);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+.look-btn:hover {
+  background: var(--purple);
+  color: white;
+  border-color: var(--purple);
+  box-shadow: 0 0 20px rgba(123,92,240,0.35);
+  transform: translateY(-2px);
+}
+
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Ayush<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About Me</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#brands">Brands</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#Events">Events</a></li>
+  </ul>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section class="hero" id="home">
+  <div class="glow-center"></div>
+  <div class="glow-side"></div>
+
+  <!-- SOCIAL -->
+  <div class="hero-social">
+    <div class="social-dot"></div>
+    <a href="https://www.linkedin.com/in/ayushh-dube?utm_source=share_via&utm_content=profile&utm_medium=member_ios" class="sicon" title="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="https://www.instagram.com/ayusssxh_03?igsh=MXJxYzloZzdub2Z0Yw==" class="sicon" title="Instagram">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+    </a>
+  </div>
+
+  <!-- LEFT TEXT -->
+  <div class="hero-left">
+    <div class="h-hello">Hello, I'm</div>
+    <div class="h-name">Ayush<br>Dube</div>
+    <p class="h-sub">19-year-old Sales & Marketing pro at Unitrite — collaborating with 40+ brands to craft bold stories and impactful campaigns.</p>
+    <div class="h-btns">
+      <a href="#projects" class="btn-p">View Projects ↗</a>
+      <a href="#about" class="btn-o">About Me</a>
+    </div>
+  </div>
+
+  <!-- CENTER PHOTO -->
+ <div class="hero-photo">
+  <div class="photo-frame">
+    <img src="iamge\ayush_new.png" alt="Ayush Photo" class="profile-photo">
+  </div>
+</div>
+
+  <!-- RIGHT TEXT -->
+  <div class="hero-right">
+    <div class="h-role-sm">Creative</div>
+    <div class="h-role-big"><span class="pu">Brand</span><br>Strategist</div>
+    <div class="h-stats">
+      <div><div class="hstat-num">40+</div><div class="hstat-lbl">Brands</div></div>
+      <div><div class="hstat-num">11+</div><div class="hstat-lbl">Months</div></div>
+      <div><div class="hstat-num">19</div><div class="hstat-lbl">Age</div></div>
+    </div>
+  </div>
+
+  <a href="resume\Ayush VPSM resume.pdf" class="resume-btn">
+    Resume
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+  </a>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="sec-hd reveal">
+    <div class="sec-tag">Who I Am</div>
+    <h2 class="sec-title">About <span>Me</span></h2>
+  </div>
+  <div class="about-g">
+    <div class="a-text reveal r1">
+      <p>I'm <strong>Ayush Dube</strong>, a 19-year-old Sales & Marketing professional at <strong>Unitrite</strong> — where I've spent 11+ months working with 40+ brands across every category imaginable, from Tesla and IKEA to healthcare startups and craft coffee brands.</p>
+      <p>My work lives at the intersection of <strong>creative direction</strong> and sharp business thinking. Whether pitching to a client, designing festival merch, or building a brand narrative — I bring both imagination and strategy.</p>
+      <p>Currently learning at <strong>Harvard Business School Online</strong>, I believe great marketing is always part human, part hustle, and entirely about connection.</p>
+    </div>
+    <div class="a-cards">
+      <div class="acard reveal r2"><div class="acard-lbl">Current Role</div><div class="acard-val">Sales & Marketing — Unitrite</div><div class="acard-sub">Since May 5, 2024 · 11+ Months Active</div></div>
+      <div class="acard reveal r3"><div class="acard-lbl">Education</div><div class="acard-val">Harvard Business School Online</div><div class="acard-sub">Leadership & Marketing · Ongoing</div></div>
+      <div class="acard reveal r4"><div class="acard-lbl">Leadership</div><div class="acard-val">College Placement Committee</div><div class="acard-sub">Member · 1.5+ Years</div></div>
+      <div class="acard reveal r5"><div class="acard-lbl">Personal</div><div class="acard-val">Born 3rd May · Age 19</div><div class="acard-sub">Young, Ambitious, Always Growing</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- EXPERIENCE -->
+<section class="sec" id="experience">
+  <div class="sec-hd reveal">
+    <div class="sec-tag">Career Journey</div>
+    <h2 class="sec-title">Work <span>Experience</span></h2>
+  </div>
+  <div>
+    <div class="exp-item reveal">
+      <div class="exp-date">May 2024 — Present<br><span style="color:var(--gray2);font-size:10.5px;">11+ Months</span></div>
+      <div class="exp-line"><div class="exp-dot"></div><div class="exp-vl"></div></div>
+      <div>
+        <div class="exp-co">Unitrite</div>
+        <div class="exp-tag">Sales & Marketing Associate</div>
+        <div class="exp-desc">Working at the intersection of brand strategy and creative execution — managing 40+ brand relationships, designing merchandise, crafting campaigns, and delivering client servicing across industries from global giants to startups.</div>
+        <div class="exp-chips">
+          <span class="chip">Brand Collaborations</span><span class="chip">Client Servicing</span><span class="chip">Merchandise Design</span><span class="chip">Creative Direction</span><span class="chip">Video Editing</span>
+        </div>
+      </div>
+    </div>
+    <div class="exp-item reveal r1">
+      <div class="exp-date">Ongoing</div>
+      <div class="exp-line"><div class="exp-dot"></div><div class="exp-vl"></div></div>
+      <div>
+        <div class="exp-co">DYPU Shop</div>
+        <div class="exp-tag">Merchandise & Operations</div>
+        <div class="exp-desc">Handled merchandise operations and product strategy — gaining hands-on experience in retail mechanics, inventory management, and product-market alignment.</div>
+      </div>
+    </div>
+    <div class="exp-item reveal r2">
+      <div class="exp-date">1.5+ Years</div>
+      <div class="exp-line"><div class="exp-dot"></div><div class="exp-vl"></div></div>
+      <div>
+        <div class="exp-co">Placement Committee</div>
+        <div class="exp-tag">Member · College Leadership</div>
+        <div class="exp-desc">Active member coordinating placement drives, liaising with companies, and guiding peers through the campus recruitment process for over 1.5 years.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- BRANDS -->
+<section class="sec" id="brands">
+  <div class="sec-hd reveal">
+    <div class="sec-tag">The Roster</div>
+    <h2 class="sec-title">Brands I've <span>Worked With</span></h2>
+  </div>
+  <p class="b-intro reveal">40+ brands across industries — global giants to homegrown startups. Every brand, a unique story. Every project, a new challenge.</p>
+
+  <div class="bcat reveal">
+    <div class="bcat-lbl">⭐ Flagship Brands</div>
+    <div class="btags">
+      <div class="btag star">Tesla</div><div class="btag star">IKEA</div><div class="btag star">Coca-Cola</div><div class="btag star">Red Bull</div><div class="btag star">Starbucks</div><div class="btag star">Zepto</div><div class="btag star">Blinkit</div><div class="btag star">Urban Company</div><div class="btag star">Zomato</div>
+    </div>
+  </div>
+  <div class="bcat reveal r1">
+    <div class="bcat-lbl">FMCG / Lifestyle / Retail</div>
+    <div class="btags">
+      <div class="btag">Dabur</div><div class="btag">Tanishq</div><div class="btag">SUGAR Cosmetics</div><div class="btag">boAt</div><div class="btag">Vadilal</div><div class="btag">Kiehl's</div><div class="btag">Engage</div>
+    </div>
+  </div>
+  <div class="bcat reveal r2">
+    <div class="bcat-lbl">Beverage & Alcohol</div>
+    <div class="btags">
+      <div class="btag">Kingfisher</div><div class="btag">Heineken</div><div class="btag">Carlsberg</div><div class="btag">Magic Moments</div>
+    </div>
+  </div>
+  <div class="bcat reveal r3">
+    <div class="bcat-lbl">Healthcare / Pharma</div>
+    <div class="btags">
+      <div class="btag">Otsuka Pharmaceuticals (Otsima)</div><div class="btag">HCG — Adding Life Years</div><div class="btag">Red Health</div><div class="btag">Dr. Suu</div>
+    </div>
+  </div>
+  <div class="bcat reveal r4">
+    <div class="bcat-lbl">Startups & Others</div>
+    <div class="btags">
+      <div class="btag">Snapbit</div><div class="btag">District</div><div class="btag">Generational Speed</div><div class="btag">Kale Chandra Coffee</div><div class="btag">Artwale</div><div class="btag">Rokde</div><div class="btag">ABD</div><div class="btag">JWP</div><div class="btag">DRGO</div><div class="btag">Super L</div><div class="btag">Mukapura</div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+<section class="sec" id="Events">
+  <div class="sec-hd reveal">
+    <div class="sec-tag">The Roster</div>
+    <h2 class="sec-title">Events I've <span>Worked With</span></h2>
+  </div>
+  <p class="b-intro reveal">15+ Event i have worked in. Every Event, a unique story. Every project, a new challenge.</p>
+
+  <div class="bcat reveal">
+    <div class="bcat-lbl">🌟 Headliner Events</div>
+    <div class="btags">
+      <div class="btag star">Coldplay (Multiple Shows)</div><div class="btag star">Martin garrix</div><div class="btag star">Rolling Loud</div>
+    </div>
+  </div>
+  <div class="bcat reveal r1">
+    <div class="bcat-lbl">🎟️ Major Events & Festivals</div>
+    <div class="btags">
+      <div class="btag">Women's World Cup T20</div><div class="btag">ICC World Cup</div><div class="btag">World Cup</div><div class="btag">Tata WPL</div><div class="btag">Elysium</div><div class="btag">Legends League</div><div class="btag">LegendCon 2024</div>
+    </div>
+  </div>
+  <div class="bcat reveal r2">
+    <div class="bcat-lbl">🎓 College & Institutional Events</div>
+    <div class="btags">
+      <div class="btag">World Women's Day Celebration</div><div class="btag">SRIF HR Summit 2026</div><div class="btag">MBA Farewell (Batch 2024-2025)</div><div class="btag">Fresher's Event (MBA & BBA Batch 2026)</div>
+    </div>
+  </div>
+  <div class="bcat reveal r3">
+    <div class="bcat-lbl">💼 Professional & Management Experience</div>
+    <div class="btags">
+      <div class="btag">Managed 30+ Placement Processes</div><div class="btag">Handled Multiple Corporate & Campus Engagements</div><div class="btag">Founders forge 2025</div><div class="btag">visionCon 2024</div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- PROJECTS -->
+<section class="sec" id="projects">
+  <div class="sec-hd reveal">
+    <div class="sec-tag">Selected Work</div>
+    <h2 class="sec-title">Projects & <span>Case Studies</span></h2>
+  </div>
+  <div class="proj-g">
+<div class="pcard reveal">
+  <div class="pnum">01</div>
+  <div class="ptype">Case Study · Video</div>
+  <div class="ptitle">Tesla — Primary Case Study</div>
+  <div class="pdesc">A brand deep-dive into Tesla's marketing philosophy, equity and storytelling strategy. Presented as a primary video case study at Unitrite.</div>
+  <a href="https://drive.google.com/file/d/18iWoqYutDjCVaCI-HtsvK5CED9DWdTGH/view?usp=drive_link" target="_blank" class="look-btn">Take a Look</a>
+  <div class="parrow">↗</div>
+</div>
+
+<div class="pcard reveal r1">
+  <div class="pnum">02</div>
+  <div class="ptype">Case Study · Video</div>
+  <div class="ptitle">Urban Company — Case Study</div>
+  <div class="pdesc">In-depth video case study on Urban Company's brand evolution and hyperlocal marketing — analyzing how they built trust at scale.</div>
+  <a href="https://drive.google.com/file/d/12sWSa-dlR38xsnXsJNpe78c6dBDPlgv1/view?usp=drive_link" target="_blank" class="look-btn">Take a Look</a>
+  <div class="parrow">↗</div>
+</div>
+
+<div class="pcard reveal r2">
+  <div class="pnum">03</div>
+  <div class="ptype">Editorial Design</div>
+  <div class="ptitle">Unitrites Magazine Design</div>
+  <div class="pdesc">
+    Major creative project — designed the complete Unitrites magazine from concept to layout, establishing visual language and editorial identity.
+  </div>
+
+  <a href="https://drive.google.com/file/d/1vxhKJVnJiYHl38eNi6uwei7bJE0U_Dhz/view?usp=sharing" target="_blank" class="look-btn">
+    Take a Look
+  </a>
+
+  <div class="parrow">↗</div>
+</div>
+<div class="pcard reveal r3">
+  <div class="pnum">04</div>
+  <div class="ptype">Merchandise Design</div>
+  <div class="ptitle">Elysium Fest — Full Merch Suite</div>
+  <div class="pdesc">Designed complete merchandise for Elysium Fest — T-shirts, Hoodies, Banners. End-to-end creative execution from concept to delivery.</div>
+  <a href="https://drive.google.com/drive/folders/1t_ZKs5gedLAL9W4snPvbPJnbVtMFCjst?usp=drive_link" target="_blank" class="look-btn">Take a Look</a>
+  <div class="parrow">↗</div>
+</div>
+
+<div class="pcard reveal r4">
+  <div class="pnum">05</div>
+  <div class="ptype">Branding & Identity</div>
+  <div class="ptitle">ShreeJi — Logo Design</div>
+  <div class="pdesc">Crafted brand identity and logo for ShreeJi — balancing tradition and modern aesthetics to create a mark that resonates and endures.</div>
+  <a href="https://drive.google.com/file/d/11HcbzrsduLW1lEMjI_D9HTiump2JTXEA/view?usp=sharing" target="_blank" class="look-btn">Take a Look</a>
+  <div class="parrow">↗</div>
+</div>
+
+<div class="pcard reveal r5">
+  <div class="pnum">06</div>
+  <div class="ptype">Menu & Print Design</div>
+  <div class="ptitle">Shreshth Café — Menu Design</div>
+  <div class="pdesc">Designed the complete menu for Shreshth Café — marrying visual appeal with clear hierarchy to enhance the dining experience.</div>
+  <a href="https://drive.google.com/file/d/10AYMrnJJURjGODWJ5NSPTG9YdL0VA002/view?usp=drive_link" target="_blank" class="look-btn">Take a Look</a>
+  <div class="parrow">↗</div>
+</div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- SKILLS -->
+<section class="sec" id="skills">
+  <div class="sec-hd reveal">
+    <div class="sec-tag">What I Bring</div>
+    <h2 class="sec-title">Skills & <span>Expertise</span></h2>
+  </div>
+  <div class="skill-g">
+    <div class="skcard reveal">
+      <div class="skcat">Core Skills</div>
+      <div class="sklist">
+        <div class="skitem">Sales & Marketing Strategy</div>
+        <div class="skitem">Brand Collaboration & Client Handling</div>
+        <div class="skitem">Merchandise Design & Development</div>
+        <div class="skitem">Storytelling & Creative Direction</div>
+        <div class="skitem">Video Editing & Content Creation</div>
+      </div>
+    </div>
+    <div class="skcard reveal r1">
+      <div class="skcat">Technical Skills</div>
+      <div class="sklist">
+        <div class="skitem">Advanced Excel (Certified)</div>
+        <div class="skitem">Presentation & Pitch Deck Creation</div>
+        <div class="skitem">Graphic & Print Design</div>
+        <div class="skitem">Brand Identity Design</div>
+        <div class="skitem">Editorial Layout</div>
+      </div>
+    </div>
+    <div class="skcard reveal r2">
+      <div class="skcat">Strengths</div>
+      <div class="sklist">
+        <div class="skitem">Leadership & Team Coordination</div>
+        <div class="skitem">Communication & Interpersonal Skills</div>
+        <div class="skitem">Creative Thinking + Business Sense</div>
+        <div class="skitem">Problem Solving & Adaptability</div>
+        <div class="skitem">Client Relationship Management</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- EDUCATION -->
+<section class="sec" id="education">
+  <div class="sec-hd reveal">
+    <div class="sec-tag">Never Stop Learning</div>
+    <h2 class="sec-title">Education & <span>Certifications</span></h2>
+  </div>
+  <div class="edu-g">
+    <div class="ecard reveal">
+      <div class="ebadge">Currently Ongoing</div>
+      <div class="einst">Harvard Business School Online</div>
+      <div class="edeg">Leadership & Marketing</div>
+      <div class="estat"><span class="ldot"></span> Actively enrolled & learning</div>
+    </div>
+    <div class="ecard reveal r1">
+      <div class="ebadge">Certified</div>
+      <div class="einst">Certificates i have</div>
+      <a href="https://drive.google.com/drive/folders/1Mx9HAz4ah586o8ruXX7KK9kS70EZ19dP?usp=sharing" target="_blank" class="look-btn">Take a Look</a>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="cta-box">
+    <div class="sec-tag reveal">Let's Connect</div>
+    <h2 class="sec-title reveal">Got a Project in <span>Mind?</span></h2>
+    <p class="cta-p reveal">Whether it's a brand collaboration, creative project, or just a good conversation about marketing — I'm always open.</p>
+    <div class="cta-btns reveal">
+      <a href="mailto:Ayushdube326@gmail.com" class="btn-p">Send a Message ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-name">Ayush <span>Dube</span></div>
+    <div class="f-sub">Sales & Marketing · Brand Strategist · Creative</div>
+  </div>
+  <div class="f-mid">Portfolio created by Harshal mob:9119549440</div>
+  <div class="f-right">
+    <div>Nashik, Maharashtra, India</div>
+    <div class="pu">DOB: 3rd May · Age 19</div>
+  </div>
+</footer>
+
+<script>
+// CURSOR
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+// NAV
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>50));
+
+// REVEAL
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
